@@ -6,11 +6,15 @@ const port = 3000;
 
 const companies = ['AM', 'FLP', 'SNP', 'HYNT', 'AZO'];
 const baseUrl = 'http://20.244.56.144/test';
+const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiZXhwIjoxNzI0MTcwNzI1LCJpYXQiOjE3MjQxNzA0MjUsImlzcyI6IkFmZm9yZG1lZCIsImp0aSI6IjQ3ZjkyYjE5LTZhNWUtNDY4Yy1iNTRjLTM5MjVlOGIwMWYwNCIsInN1YiI6ImFtaXRlc2h0aXdhcmkyNDA2QGdtYWlsLmNvbSJ9LCJjb21wYW55TmFtZSI6IldlYlNvbHV0aW9ucyIsImNsaWVudElEIjoiNDdmOTJiMTktNmE1ZS00NjhjLWI1NGMtMzkyNWU4YjAxZjA0IiwiY2xpZW50U2VjcmV0IjoiRHFkTWhlVGdacW9OcVRDSiIsIm93bmVyTmFtZSI6IkFtaXRlc2ggVGl3YXJpIiwib3duZXJFbWFpbCI6ImFtaXRlc2h0aXdhcmkyNDA2QGdtYWlsLmNvbSIsInJvbGxObyI6IjEyMTA0MzgwMDYifQ.aMLQhQEuYzxTGApjNwDfXzMxIosJrMrsQ0RQXKqyYDI'
 
 const fetchProducts = async (category, minPrice, maxPrice) => {
     const requests = companies.map(company => 
         axios.get(`${baseUrl}/${company}/${category}`, {
-            params: { minPrice, maxPrice }
+            header :{
+                'Authorization' : `Bearer ${accessToken}`
+            },
+            params: { category,minPrice, maxPrice }
         })
     );
     const responses = await Promise.all(requests);
